@@ -36,8 +36,7 @@ A small Next.js (14.2.5 + React 18) demo app showing:
 ### 1. Clone & Install
 
 ```bash
-git clone  https://github.com/VishalDudeja/JSC-FrontEnd-Task.git
-cd JSC-FrontEnd-Task
+git clone https://github.com/VishalDudeja/JSC-FE-Task.git
 npm install
 ```
 
