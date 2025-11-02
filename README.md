@@ -37,7 +37,7 @@ A small Next.js (14.2.5 + React 18) demo app showing:
 
 ```bash
 git clone  https://github.com/VishalDudeja/JSC-FrontEnd-Task.git
-cd Fe-task
+cd JSC-FrontEnd-Task
 npm install
 ```
 
@@ -75,7 +75,7 @@ npm run dev
 Run Jest tests:
 
 ```bash
-npm test
+npm run test
 ```
 
 ---
@@ -107,9 +107,8 @@ next-ssr-patient-records/
 │       └── index.ts                   # (Optional) Card type definitions
 │
 ├── __tests__/                         # ✅ Jest tests (to be added)
-│   ├── crypto.test.ts                 # Encryption/decryption tests
-│   ├── Card.test.tsx                  # Component rendering test
-│   └── CardList.test.tsx              # Search/sort animation behavior
+│   ├── crypto.test.ts                 # Encryption/decryption tests                 
+│     
 │
 ├── public/
 │   └── favicon.ico
@@ -141,15 +140,10 @@ API Route (encrypts) → Server (decrypts) → Client (displays)
 ## Features Demo
 
 ### Search
-Type in the search box to filter surveys by title, category, or content.
+Type in the search box to filter surveys by title or description
 
 ### Sort
-Use the dropdown to sort by date, title, or status.
-
-### Animations
-- Cards animate on page load (stagger effect)
-- Hover over cards for elevation effect
-- Smooth transitions when filtering
+Sort cards by date
 
 ---
 
