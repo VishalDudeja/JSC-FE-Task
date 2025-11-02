@@ -1,0 +1,43 @@
+.card {
+  background-color: #f9f9ff; /* soft bluish white background */
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card h3 {
+  color: #2a4d8f;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.card small {
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+.card p {
+  color: #444;
+  flex-grow: 1;
+  margin-bottom: 0.75rem;
+}
+
+.card button {
+  align-self: flex-start;
+  background-color: #2a4d8f;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+}
+
+.card button:hover {
+  background-color: #1f3c73;
+}

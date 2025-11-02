@@ -1,0 +1,8 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",       // required for ts-jest to parse JSX
+    "moduleResolution": "node"
+  },
+  "include": ["src", "__tests__"]
+}

@@ -1,95 +1,63 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import React from 'react';
+import CardList from '../components/CardList';
+import { decryptPayload } from '../lib/crypto';
+import './globals.css';
 
-export default function Home() {
+type Item = {
+  id: string;
+  title: string;
+  snippet: string;
+  ts: string;
+};
+
+
+async function fetchEncryptedItems(): Promise<Item[]> {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+
+  try {
+    const res = await fetch(`${baseUrl}/api/encrypted`, { cache: "no-store" });
+    const json = await res.json();
+    // Handle HTTP errors (like 404, 500)
+    if (!res.ok || json.error) {
+      return json.error;
+    }
+
+    // Decrypt the payload
+    const data = decryptPayload(json.payload);
+    if (!data?.userData) {
+      console.error("Decrypted data is invalid or missing userData");
+      return [];
+    }
+
+    return data.userData as Item[];
+  } catch (err) {
+    console.error("Fetch Encrypted Items error:", err);
+    // Return empty array to prevent page crash
+    return [];
+  }
+}
+
+
+export default async function Page() {
+  const userData = await fetchEncryptedItems();
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
+    <main>
+      <section className="hero-section">
+        <h1 className="hero-title">Patient Records Dashboard</h1>
+        <p className="hero-subtext">
+          Complete patient records with AES-256-GCM encryption.
         </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+      </section>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+      {Array.isArray(userData) && userData.length > 0 ? (
+        <CardList items={userData} />
+      ) : (
+        // If userData is string (error) or empty array
+        <p className='no-data'>
+          {typeof userData === 'string' ? userData : 'No records found. Please check your Environment variables configuration for the possible cause.'}
+        </p>
+      )}
 
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
     </main>
   );
 }
