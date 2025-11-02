@@ -85,15 +85,16 @@ npm run test
 next-ssr-patient-records/
 │
 ├── src/
-│   ├── app/
+│   |__tests__/                         # Jest tests 
+│   |     └──  crypto.test.ts                 # Encryption/decryption tests   
+    |── app/   
 │   │   ├── api/
 │   │   │   └── encrypted/
 │   │   │       └── route.ts           # API route serving encrypted data
 │   │   │
 │   │   ├── components/
 │   │   │   ├── Card.tsx               # Single animated card
-│   │   │   ├── CardList.tsx           # Grid of cards + search/sort
-│   │   │   └── SearchSortBar.tsx      # Search + Sort controls (if separate)
+│   │   │   ├── CardList.tsx           # Grid of cards + search/sort│   │   │ 
 │   │   │
 │   │   ├── globals.css                # Global styling (normal CSS)
 │   │   ├── layout.tsx                 # Root layout for App Router
@@ -102,11 +103,12 @@ next-ssr-patient-records/
 │   ├── lib/
 │   │   └── crypto.ts                  # AES-256-GCM encryption/decryption utils
 │   │
-│   └── types/
-│       └── index.ts                   # (Optional) Card type definitions
-│
-├── __tests__/                         # ✅ Jest tests (to be added)
-│   ├── crypto.test.ts                 # Encryption/decryption tests                 
+│   └── styles/
+│   │    └── Card.css                  # CSS for indivual card 
+|   │     └── CardList.css             # CSS for Cards grid    
+|   │
+│   └── utils/
+│       └── datetimets.ts              # JS funciton to generate date and time stamps for each user data card
 │     
 │
 ├── public/
@@ -123,18 +125,6 @@ next-ssr-patient-records/
 └── README.md                          # ✅ Updated wit
 
 ```
-
----
-
-## How It Works
-
-### Data Flow
-
-```
-API Route (encrypts) → Server (decrypts) → Client (displays)
-```
-
----
 
 ## Features Demo
 
@@ -159,7 +149,7 @@ Sort cards by date
 
 **Vishal Dudeja**
 - Email: vishaldudeja94@gmail.com
-- GitHub: [@VishalDudeja](https://github.com/VishalDudeja)
+- GitHub: [@VishalDudeja](https://github.com/VishalDudeja/JSC-FE-Task.git)
 
 ---
 
