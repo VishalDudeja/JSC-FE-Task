@@ -2,13 +2,18 @@ import React from 'react';
 import CardList from '../components/CardList';
 import { decryptPayload } from '../lib/crypto';
 import './globals.css';
-
-type Item = {
-  id: string;
-  title: string;
-  snippet: string;
-  ts: string;
-};
+import { motion } from "framer-motion";
+import {
+  FolderOpen,
+  UserCircle2,
+  FileText,
+  Eye,
+  Clock,
+  Pencil,
+  Trash2,
+  Info,
+} from "lucide-react";
+import { Item } from '../utils/types';
 
 
 async function fetchEncryptedItems(): Promise<Item[]> {
@@ -42,15 +47,9 @@ export default async function Page() {
   const userData = await fetchEncryptedItems();
   return (
     <main>
-      <section className="hero-section">
-        <h1 className="hero-title">Patient Records Dashboard</h1>
-        <p className="hero-subtext">
-          Complete patient records with AES-256-GCM encryption.
-        </p>
-      </section>
 
       {Array.isArray(userData) && userData.length > 0 ? (
-        <CardList items={userData} />
+        <CardList items={userData} />    
       ) : (
         // If userData is string (error) or empty array
         <p className='no-data'>

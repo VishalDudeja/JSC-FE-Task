@@ -129,7 +129,7 @@ next-ssr-patient-records/
 ## Features Demo
 
 ### Search
-Type in the search box to filter surveys by title or description
+Type in the search box to filter cards by title or description
 
 ### Sort
 Sort cards by date

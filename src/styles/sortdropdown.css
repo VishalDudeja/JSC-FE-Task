@@ -1,0 +1,111 @@
+/* styles/SortDropdown.module.css */
+
+/* Define variables for the water UI theme */
+:root {
+  --water-bg-opacity-low: rgba(255, 255, 255, 0.3);
+  --water-bg-opacity-medium: rgba(255, 255, 255, 0.7);
+  --water-border-color: rgba(255, 255, 255, 0.5);
+  --text-color: #1f2937; /* gray-800 */
+  --icon-color: #4b5563; /* gray-600 */
+  --blue-hover-bg: rgba(59, 130, 246, 0.1); /* blue-500/10 */
+  --blue-active-bg: rgba(59, 130, 246, 0.2); /* blue-500/20 */
+  --blue-text: #3b82f6; /* blue-500 */
+}
+
+.dropdownContainer {
+  position: relative;
+  display: inline-block;
+  text-align: left;
+}
+
+.sortButton {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  border-radius: 0.5rem; /* rounded-lg */
+  border: 1px solid var(--water-border-color);
+  padding: 0.625rem 1.25rem; /* px-5 py-2.5 */
+  background-color: var(--water-bg-opacity-low);
+  /* The core frosted glass effect */
+  backdrop-filter: blur(4px); 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* shadow-md */
+  font-size: 0.875rem; /* text-sm */
+  font-weight: 600; /* font-semibold */
+  color: var(--text-color);
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+  /* Basic focus styling */
+  outline: none; 
+}
+
+.sortButton:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.sortButton:focus {
+  /* Tailwind focus:ring-2 focus:ring-blue-400 */
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px #60a5fa; 
+}
+
+.iconCalendar {
+  margin-right: 0.75rem; /* mr-3 */
+  height: 1rem; /* h-4 */
+  width: 1rem; /* w-4 */
+  color: var(--icon-color);
+}
+
+.iconChevron {
+  margin-left: 0.5rem; /* ml-2 */
+  margin-right: -0.25rem; /* -mr-1 */
+  height: 1.25rem; /* h-5 */
+  width: 1.25rem; /* w-5 */
+  color: var(--icon-color);
+}
+
+.optionsMenu {
+  position: absolute;
+  right: 0;
+  margin-top: 0.5rem; /* mt-2 */
+  width: 14rem; /* w-56 */
+  border-radius: 0.5rem; /* rounded-lg */
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1); /* shadow-xl */
+  background-color: var(--water-bg-opacity-medium);
+  /* Stronger blur for the menu itself */
+  backdrop-filter: blur(8px); 
+  z-index: 10;
+  overflow: hidden;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.optionItem {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0.5rem 1rem; /* px-4 py-2 */
+  font-size: 0.875rem; /* text-sm */
+  color: var(--text-color);
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+  cursor: pointer;
+  border: none;
+  background: none;
+  text-align: left;
+}
+
+.optionItem:hover {
+  background-color: var(--blue-hover-bg);
+  color: var(--blue-text);
+}
+
+.optionItem.active {
+  background-color: var(--blue-active-bg);
+  color: var(--blue-text);
+  font-weight: 600; /* font-semibold */
+}
+
+.optionIcon {
+  margin-right: 0.75rem; /* mr-3 */
+  height: 1rem; /* h-4 */
+  width: 1rem; /* w-4 */
+}
