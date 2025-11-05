@@ -19,7 +19,7 @@ export default function Card({ item }: { item: Item }) {
       className="card record-card"
       whileHover={{
         scale: 1.05,
-        boxShadow: '0 6px 15px rgba(0,0,0,0.2)',
+        boxShadow: '0 6px 15px rgba(37, 99, 235, 0.15)',
         transition: { duration: 0.25 },
         backgroundColor: "#eaf2ff",
       }}

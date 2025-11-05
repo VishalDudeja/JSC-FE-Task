@@ -1,3 +1,15 @@
+:root {
+  --blue-primary: #2563eb;
+  --blue-dark: #1e3a8a;
+  --blue-light: #eff6ff;
+  --blue-accent: #3b82f6;
+  --white: #ffffff;
+  --bg-light: #f8fafc;
+  --text-dark: #1e293b;
+  --text-light: #64748b;
+  --border-color: #dbeafe;
+}
+
 .controls {
   display: flex;
   flex-wrap: wrap;
@@ -56,26 +68,6 @@
 
 
 /* --------------- */
-
-:root {
-  --blue-primary: #2563eb;
-  --blue-dark: #1e3a8a;
-  --blue-light: #eff6ff;
-  --blue-accent: #3b82f6;
-  --white: #ffffff;
-  --bg-light: #f8fafc;
-  --text-dark: #1e293b;
-  --text-light: #64748b;
-  --border-color: #dbeafe;
-}
-
-body {
-  font-family: "Inter", sans-serif;
-  background: var(--bg-light);
-  color: var(--text-dark);
-  margin: 0;
-  padding: 0;
-}
 
 /* HEADER */
 .header {
@@ -170,136 +162,5 @@ body {
   gap: 1.5rem;
 }
 
-/* RECORD CARD */
-.record-card {
-  background: var(--white);
-  border-radius: 12px;
-  padding: 1.3rem 1.5rem;
-  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  position: relative;
-  overflow: hidden;
-}
-
-/* Gradient Left Border */
-.record-card::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 5px;
-  height: 100%;
-  background: linear-gradient(to bottom, #60a5fa, #2563eb, #1e3a8a);
-  border-top-left-radius: 12px;
-  border-bottom-left-radius: 12px;
-}
-
-.record-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.15);
-}
-/* RECORD HEADER */
-.record-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
-.record-header-left {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-}
-
-.avatar {
-  color: var(--blue-primary);
-}
-
-.record-header-left h3 {
-  margin: 0;
-  color: var(--text-dark);
-}
-
-.record-type {
-  background: var(--blue-light);
-  color: var(--blue-dark);
-  font-size: 0.75rem;
-  font-weight: 600;
-  padding: 0.25rem 0.7rem;
-  border-radius: 15px;
-  display: inline-block;
-  margin-top: 0.25rem;
-}
-
-.record-icons {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.icon {
-  cursor: pointer;
-  transition: color 0.2s;
-}
-
-.icon.edit {
-  color: var(--blue-primary);
-}
-
-.icon.delete {
-  color: #ef4444;
-}
-
-/* DATE */
-.record-date {
-  font-size: 0.85rem;
-  color: var(--text-light);
-  margin: 0.8rem 0 0.6rem;
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-
-/* INNER NOTE BOX */
-.record-note {
-  background: var(--blue-light);
-  border-radius: 8px;
-  padding: 0.8rem 1rem;
-  display: flex;
-  align-items: flex-start;
-  gap: 0.6rem;
-  color: var(--text-dark);
-  font-size: 0.95rem;
-  margin-bottom: 1rem;
-}
-
-.note-icon {
-  color: var(--blue-primary);
-  margin-top: 0.2rem;
-}
-
-/* FULL-WIDTH BUTTON */
-.details-btn {
-  background: var(--blue-primary);
-  color: var(--white);
-  border: none;
-  padding: 0.7rem 0;
-  border-radius: 8px;
-  font-weight: 600;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: background 0.3s ease;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.4rem;
-  width: 100%;
-}
-
-.details-btn:hover {
-  background: var(--blue-dark);
-}
 
 

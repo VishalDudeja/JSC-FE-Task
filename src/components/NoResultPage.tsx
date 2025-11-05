@@ -17,12 +17,12 @@ export const NoResultPage = ({clearSearch} : {clearSearch :  () => void}) => {
             animate={{ opacity: 1, scale: 1 }}
             className="no-result-wrapper"
         >
-            <Image alt="No Data Found" src={gif} />
+            <Image alt="No Data Found" src={gif} style={{marginBottom: 10}}/>
             {/* Animated Icon */}
             <motion.div
                 animate={{
-                    y: [0, -10, 0],
-                    scale: [1, 1.05, 1]
+                    y: [0, -6, 0],
+                    scale: [1, 1, 1]
                 }}
                 transition={{
                     duration: 3,
@@ -37,28 +37,28 @@ export const NoResultPage = ({clearSearch} : {clearSearch :  () => void}) => {
             </motion.div>
 
             {/* Content */}
-            <motion.h3
+           {/*  <motion.h3
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.2 }}
             >
                 No Records Found
-            </motion.h3>
+            </motion.h3> */}
 
             <motion.p
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.3 }}
             >
-                Try refining your search by entering the record title or description...
+               Try refining your search by entering a record title or description
             </motion.p>
 
             {/* Action Button */}
             <motion.button
+                className='clear-btn'
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.4 }}
-                whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={ handleClearSearch}
             >

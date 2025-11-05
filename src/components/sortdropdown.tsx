@@ -1,9 +1,7 @@
 'use client';
-
 import React, { useState, useRef, useEffect } from 'react';
 import { ChevronDown, ArrowDownWideNarrow, ArrowUpWideNarrow, Calendar, LucideIcon } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-// Import the CSS Module
 import '../styles/sortdropdown.css';
 
 // --- Types (remain the same) ---
@@ -24,7 +22,7 @@ const sortOptions: SortOption[] = [
 ];
 
 // --- Component (using plain CSS classes) ---
-const WaterSortDropdownPlainCSS: React.FC<SortDropdownProps> = ({ currentSort, onSortChange } : SortDropdownProps) => {
+const SortDropdown: React.FC<SortDropdownProps> = ({ currentSort, onSortChange } : SortDropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -47,7 +45,9 @@ const WaterSortDropdownPlainCSS: React.FC<SortDropdownProps> = ({ currentSort, o
 
   return (
     <div className='dropdownContainer' ref={dropdownRef}>
-      <div>
+      <motion.div
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}>
         <button
           type="button"
           onClick={() => setIsOpen(!isOpen)}
@@ -61,17 +61,18 @@ const WaterSortDropdownPlainCSS: React.FC<SortDropdownProps> = ({ currentSort, o
           <motion.div
             animate={{ rotate: isOpen ? 180 : 0 }}
             transition={{ duration: 0.3 }}
+            style = {{display: 'flex'}}
           >
             <ChevronDown className='iconChevron' />
           </motion.div>
         </button>
-      </div>
+      </motion.div>
 
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -10, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.95 }}
             transition={{ duration: 0.2 }}
             className='optionsMenu'
@@ -85,7 +86,7 @@ const WaterSortDropdownPlainCSS: React.FC<SortDropdownProps> = ({ currentSort, o
                   key={option.id}
                   onClick={() => handleSelect(option.id)}
                   // Conditionally apply the active class
-                  className={`$optionItem} ${
+                  className={`optionItem ${
                     currentSort === option.id ? 'active' : ''
                   }`}
                   role="menuitem"
@@ -102,4 +103,4 @@ const WaterSortDropdownPlainCSS: React.FC<SortDropdownProps> = ({ currentSort, o
   );
 };
 
-export default WaterSortDropdownPlainCSS;
+export default SortDropdown;

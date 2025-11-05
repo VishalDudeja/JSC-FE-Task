@@ -2,17 +2,6 @@ import React from 'react';
 import CardList from '../components/CardList';
 import { decryptPayload } from '../lib/crypto';
 import './globals.css';
-import { motion } from "framer-motion";
-import {
-  FolderOpen,
-  UserCircle2,
-  FileText,
-  Eye,
-  Clock,
-  Pencil,
-  Trash2,
-  Info,
-} from "lucide-react";
 import { Item } from '../utils/types';
 
 

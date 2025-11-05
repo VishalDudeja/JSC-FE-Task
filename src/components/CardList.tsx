@@ -1,15 +1,13 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Card from './Card';
 import '../styles/CardList.css';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   FolderOpen,
-  Clock,
   Info,
 } from "lucide-react";
 import SortDropdown from './sortdropdown';
-import { Calendar, TrendingUp } from 'lucide-react';
 import { Item } from '../utils/types'
 import NoResultsPage from './NoResultPage';
 
@@ -19,21 +17,61 @@ type Props = {
 
 export default function CardList({ items }: Props) {
   const [searchText, setSearchText] = useState('');
-  const [sortAsc, setSortAsc] = useState(false);
   const [sortOrder, setSortOrder] = useState('newest'); // default sort order
 
   const handleCleaerSearch = () =>{
     setSearchText('')
   }
-
-  const lowerSearch = searchText.trim().toLowerCase();
-  const filtered = items.filter(it => {
+   
+  //const lowerSearch = searchText.trim().toLowerCase();
+  /* const filtered = items.filter(it => {
     if (!lowerSearch) return true;
     return it.title.toLowerCase().includes(lowerSearch) || it.snippet.toLowerCase().includes(lowerSearch);
-  });
+  }); */
 
-  //copy the filtered array and sort the new aaray based on the date/timestamp
-  const sorted = filtered.slice().sort((a, b) => (sortAsc ? a.ts.localeCompare(b.ts) : b.ts.localeCompare(a.ts)));
+  //filtered is recalculated only when items or searchText changes
+  const filtered = React.useMemo(() => {
+    const lower = searchText.trim().toLowerCase();
+    if (!lower) return items;
+    return items.filter(it =>
+      it.title.toLowerCase().includes(lower) ||
+      it.snippet.toLowerCase().includes(lower)
+    );
+  }, [items, searchText]);
+
+  const handleSortOrder = (sortType: string) =>{
+    setSortOrder(sortType);
+  }
+
+  function sortByDate(data : Item[], order : string) {
+    //Right now, .sort() mutates the array in-place. This can cause subtle bugs if the same array is reused. Instead, make a copy first:
+    return [...data].sort((a, b) => {
+      const toDateOnly = (str : string) => {
+        const [datePart] = str.split(' ');
+        const [day, month, year] = datePart.split('/').map(Number);
+        return new Date(year, month - 1, day);
+      };
+
+      const dateA = toDateOnly(a.ts);
+      const dateB = toDateOnly(b.ts);
+
+      return order === 'oldest' ? dateA.getTime() - dateB.getTime() : dateB.getTime() - dateA.getTime();
+    });
+  }
+
+  //This is triggering an extra render because setDataToRender updates state after the render.
+  /* useEffect(()=>{
+    const sorted = sortByDate(filtered, sortOrder)
+    setDataToRender(sorted)
+  }, [sortOrder, searchText]) */
+
+  //Instead, compute sorted data directly using useMemo:
+  //Memoize sorted data instead of using useEffect + setState
+  //No extra useEffect and no unnecessary state update → reduces re-renders.
+
+  const dataToRender = React.useMemo(() => {
+   return sortByDate(filtered, sortOrder);
+  }, [filtered, sortOrder]);
 
   return (
     <>
@@ -49,7 +87,7 @@ export default function CardList({ items }: Props) {
           </div>
           <div>
             <h1>Patient Records Dashboard</h1>
-            <p>Comprehensive patient care and medical history management</p>
+            <p>Complete patient records with AES-256-GCM encryption.</p>
           </div>
         </div>
       </motion.header>
@@ -70,25 +108,14 @@ export default function CardList({ items }: Props) {
             onChange={e => setSearchText(e.target.value)}
             whileFocus={{ scale: 1.02, boxShadow: '0 0 0 3px rgba(59, 130, 246, 0.2)' }}
           />
-
-          {/* <motion.button
-          className="sort-btn"
-          onClick={() => setSortAsc(prev => !prev)}
-          whileHover={{ scale: 1.05, backgroundColor: '#2563eb' }}
-          whileTap={{ scale: 0.95 }}
-        >
-          {sortAsc ? 'Sort by date : Old first' : 'Sort by date : Latest First'}
-        </motion.button> */}
           <SortDropdown
             currentSort={sortOrder}
-            onSortChange={() => setSortAsc(prev => !prev)}
+            onSortChange={handleSortOrder}
           />
         </motion.div>
 
-
-
         {
-          sorted.length > 0 ?
+          dataToRender.length > 0 ?
             <>
               <motion.h2
                 initial={{ opacity: 0, y: -20 }}
@@ -96,13 +123,13 @@ export default function CardList({ items }: Props) {
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.4, ease: 'easeOut' }}>
                 <Info size={16} /> 
-                  {sorted.length > 1 ?  `Showing data for ${sorted.length} Patients` :  `Showing data for ${sorted.length} Patient`}
+                  {dataToRender.length > 1 ?  `Showing data for ${dataToRender.length} Patients` :  `Showing data for ${dataToRender.length} Patient`}
               </motion.h2>
 
               <div className="card-grid">
                 <AnimatePresence>
                   {
-                    sorted.map(item => (
+                    dataToRender.map(item => (
                       <Card key={item.id} item={item} />
                     ))
                   }
@@ -110,7 +137,6 @@ export default function CardList({ items }: Props) {
               </div>
             </>
             :
-           /*  <h1 className='no-data'>No Patient Found</h1> */
             <NoResultsPage clearSearch = {handleCleaerSearch}/>
         }
       </div>
